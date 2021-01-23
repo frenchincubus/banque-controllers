@@ -1,5 +1,18 @@
 package fr.banque.models;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+		  use = JsonTypeInfo.Id.NAME, 
+		  include = JsonTypeInfo.As.PROPERTY, 
+		  property = "type")
+		@JsonSubTypes({ 
+		  @Type(value = CompteRemunere.class, name = "remunere"), 
+		  @Type(value = CompteASeuil.class, name = "aSeuil"),
+		  @Type(value = CompteASeuilRemunere.class, name = "aSeuilRemunere")
+		})
 public class Compte implements ICompte {
 	
 	protected int numero;
